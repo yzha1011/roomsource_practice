@@ -1,26 +1,30 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="app">
+    <room-area :area-data="highScore"></room-area>
+  </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script setup>
+import RoomArea from "./components/RoomArea.vue";
+// import highScore from "./data/high_score.json"
+import {ref} from 'vue'
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+const highScore = ref({})
+setTimeout(() => {
+  import("./data/high_score.json").then(res => {
+    console.log(res.default)
+    highScore.value = res.default 
+  })
+}, 1000)
+console.log(highScore)
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="less" scoped>
+  .app {
+    width: 1032px;
+    padding: 40px;
+    margin: 0 auto;
+  }
+
+  
 </style>
